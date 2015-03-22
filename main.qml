@@ -10,7 +10,7 @@ Window {
     visible: true
     width: 360
     height: 360
-    TextEdit {
+    TextArea {
         Accessible.name: "document"
         id: textArea
         x: 0
