@@ -26,7 +26,7 @@ Window {
         font.pointSize: 12
         font.bold: false
         anchors.bottomMargin: 185
-        textFormat: Qt.RichText
+        textFormat: textArea.AutoText
         Component.onCompleted: forceActiveFocus()
     }
 
@@ -62,7 +62,7 @@ Window {
 
     FileDialog{
         id: fileDialog
-        nameFilters: ["Text files (*.txt)", "HTML files (*.c)"]
+        nameFilters: ["Text files (*.txt)", "c files (*.c)"]
         onAccepted: document.fileUrl = fileUrl
     }
 
