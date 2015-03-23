@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>main.qml</file>
-    </qresource>
-    <qresource prefix="/file">
-        <file>test.c</file>
-    </qresource>
-</RCC>
