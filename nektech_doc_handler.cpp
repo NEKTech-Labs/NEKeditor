@@ -43,7 +43,7 @@ void NEKTech_Doc_Handler::setFileUrl(const QUrl &arg)
                 if (m_doc)
                     m_doc->setModified(false);
                 if (fileName.isEmpty())
-                    m_documentTitle = QStringLiteral("untitled.txt");
+                    m_documentTitle = QStringLiteral("untitled.c");
                 else
                     m_documentTitle = QFileInfo(fileName).fileName();
 

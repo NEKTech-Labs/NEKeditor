@@ -39,6 +39,16 @@ Window {
     }
 
 
+    ToolButton {
+        id: saveButton
+        y: 0
+        anchors.left: openButton.right
+        text: "Save"
+        onClicked: {
+         nektechio.save(textArea.text)
+            console.log("save button clicked")
+        }
+    }
 
     FileDialog{
         id: fileDialog
