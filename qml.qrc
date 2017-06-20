@@ -2,7 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
     </qresource>
-    <qresource prefix="/file">
-        <file>test.c</file>
+    <qresource prefix="/">
+        <file>nektech.c</file>
     </qresource>
 </RCC>

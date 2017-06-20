@@ -3,7 +3,8 @@ TEMPLATE = app
 QT += qml quick
 
 SOURCES += main.cpp \
-    documenthandler.cpp
+    nektech_doc_handler.cpp \
+    nektechio.cpp
 
 RESOURCES += qml.qrc
 
@@ -14,4 +15,5 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    documenthandler.h
+    nektech_doc_handler.h \
+    nektechio.h

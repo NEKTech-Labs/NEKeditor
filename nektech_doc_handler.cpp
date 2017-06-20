@@ -1,51 +1,10 @@
-/****************************************************************************
-**
-** Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
-** Contact: http://www.qt-project.org/legal
-**
-** This file is part of the Qt Quick Controls module of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** You may use this file under the terms of the BSD license as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of Digia Plc and its Subsidiary(-ies) nor the names
-**     of its contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
-
-#include "documenthandler.h"
-
+#include "nektech_doc_handler.h"
 #include <QtGui/QTextDocument>
 #include <QtGui/QTextCursor>
 #include <QtGui/QFontDatabase>
 #include <QtCore/QFileInfo>
 
-DocumentHandler::DocumentHandler()
+NEKTech_Doc_Handler::NEKTech_Doc_Handler()
     : m_target(0)
     , m_doc(0)
     , m_cursorPosition(-1)
@@ -54,7 +13,7 @@ DocumentHandler::DocumentHandler()
 {
 }
 
-void DocumentHandler::setTarget(QQuickItem *target)
+void NEKTech_Doc_Handler::setTarget(QQuickItem *target)
 {
     m_doc = 0;
     m_target = target;
@@ -70,7 +29,7 @@ void DocumentHandler::setTarget(QQuickItem *target)
     emit targetChanged();
 }
 
-void DocumentHandler::setFileUrl(const QUrl &arg)
+void NEKTech_Doc_Handler::setFileUrl(const QUrl &arg)
 {
     if (m_fileUrl != arg) {
         m_fileUrl = arg;
@@ -84,7 +43,7 @@ void DocumentHandler::setFileUrl(const QUrl &arg)
                 if (m_doc)
                     m_doc->setModified(false);
                 if (fileName.isEmpty())
-                    m_documentTitle = QStringLiteral("untitled.txt");
+                    m_documentTitle = QStringLiteral("untitled.c");
                 else
                     m_documentTitle = QFileInfo(fileName).fileName();
 
@@ -98,12 +57,12 @@ void DocumentHandler::setFileUrl(const QUrl &arg)
     }
 }
 
-QString DocumentHandler::documentTitle() const
+QString NEKTech_Doc_Handler::documentTitle() const
 {
     return m_documentTitle;
 }
 
-void DocumentHandler::setDocumentTitle(QString arg)
+void NEKTech_Doc_Handler::setDocumentTitle(QString arg)
 {
     if (m_documentTitle != arg) {
         m_documentTitle = arg;
@@ -111,7 +70,7 @@ void DocumentHandler::setDocumentTitle(QString arg)
     }
 }
 
-void DocumentHandler::setText(const QString &arg)
+void NEKTech_Doc_Handler::setText(const QString &arg)
 {
     if (m_text != arg) {
         m_text = arg;
@@ -119,17 +78,17 @@ void DocumentHandler::setText(const QString &arg)
     }
 }
 
-QUrl DocumentHandler::fileUrl() const
+QUrl NEKTech_Doc_Handler::fileUrl() const
 {
     return m_fileUrl;
 }
 
-QString DocumentHandler::text() const
+QString NEKTech_Doc_Handler::text() const
 {
     return m_text;
 }
 
-void DocumentHandler::setCursorPosition(int position)
+void NEKTech_Doc_Handler::setCursorPosition(int position)
 {
     if (position == m_cursorPosition)
         return;
@@ -139,7 +98,7 @@ void DocumentHandler::setCursorPosition(int position)
     reset();
 }
 
-void DocumentHandler::reset()
+void NEKTech_Doc_Handler::reset()
 {
     emit fontFamilyChanged();
     emit alignmentChanged();
@@ -150,7 +109,7 @@ void DocumentHandler::reset()
     emit textColorChanged();
 }
 
-QTextCursor DocumentHandler::textCursor() const
+QTextCursor NEKTech_Doc_Handler::textCursor() const
 {
     QTextCursor cursor = QTextCursor(m_doc);
     if (m_selectionStart != m_selectionEnd) {
@@ -162,7 +121,7 @@ QTextCursor DocumentHandler::textCursor() const
     return cursor;
 }
 
-void DocumentHandler::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
+void NEKTech_Doc_Handler::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 {
     QTextCursor cursor = textCursor();
     if (!cursor.hasSelection())
@@ -170,17 +129,17 @@ void DocumentHandler::mergeFormatOnWordOrSelection(const QTextCharFormat &format
     cursor.mergeCharFormat(format);
 }
 
-void DocumentHandler::setSelectionStart(int position)
+void NEKTech_Doc_Handler::setSelectionStart(int position)
 {
     m_selectionStart = position;
 }
 
-void DocumentHandler::setSelectionEnd(int position)
+void NEKTech_Doc_Handler::setSelectionEnd(int position)
 {
     m_selectionEnd = position;
 }
 
-void DocumentHandler::setAlignment(Qt::Alignment a)
+void NEKTech_Doc_Handler::setAlignment(Qt::Alignment a)
 {
     QTextBlockFormat fmt;
     fmt.setAlignment((Qt::Alignment) a);
@@ -191,7 +150,7 @@ void DocumentHandler::setAlignment(Qt::Alignment a)
     emit alignmentChanged();
 }
 
-Qt::Alignment DocumentHandler::alignment() const
+Qt::Alignment NEKTech_Doc_Handler::alignment() const
 {
     QTextCursor cursor = textCursor();
     if (cursor.isNull())
@@ -199,7 +158,7 @@ Qt::Alignment DocumentHandler::alignment() const
     return textCursor().blockFormat().alignment();
 }
 
-bool DocumentHandler::bold() const
+bool NEKTech_Doc_Handler::bold() const
 {
     QTextCursor cursor = textCursor();
     if (cursor.isNull())
@@ -207,7 +166,7 @@ bool DocumentHandler::bold() const
     return textCursor().charFormat().fontWeight() == QFont::Bold;
 }
 
-bool DocumentHandler::italic() const
+bool NEKTech_Doc_Handler::italic() const
 {
     QTextCursor cursor = textCursor();
     if (cursor.isNull())
@@ -215,7 +174,7 @@ bool DocumentHandler::italic() const
     return textCursor().charFormat().fontItalic();
 }
 
-bool DocumentHandler::underline() const
+bool NEKTech_Doc_Handler::underline() const
 {
     QTextCursor cursor = textCursor();
     if (cursor.isNull())
@@ -223,7 +182,7 @@ bool DocumentHandler::underline() const
     return textCursor().charFormat().fontUnderline();
 }
 
-void DocumentHandler::setBold(bool arg)
+void NEKTech_Doc_Handler::setBold(bool arg)
 {
     QTextCharFormat fmt;
     fmt.setFontWeight(arg ? QFont::Bold : QFont::Normal);
@@ -231,7 +190,7 @@ void DocumentHandler::setBold(bool arg)
     emit boldChanged();
 }
 
-void DocumentHandler::setItalic(bool arg)
+void NEKTech_Doc_Handler::setItalic(bool arg)
 {
     QTextCharFormat fmt;
     fmt.setFontItalic(arg);
@@ -239,7 +198,7 @@ void DocumentHandler::setItalic(bool arg)
     emit italicChanged();
 }
 
-void DocumentHandler::setUnderline(bool arg)
+void NEKTech_Doc_Handler::setUnderline(bool arg)
 {
     QTextCharFormat fmt;
     fmt.setFontUnderline(arg);
@@ -247,7 +206,7 @@ void DocumentHandler::setUnderline(bool arg)
     emit underlineChanged();
 }
 
-int DocumentHandler::fontSize() const
+int NEKTech_Doc_Handler::fontSize() const
 {
     QTextCursor cursor = textCursor();
     if (cursor.isNull())
@@ -256,7 +215,7 @@ int DocumentHandler::fontSize() const
     return format.font().pointSize();
 }
 
-void DocumentHandler::setFontSize(int arg)
+void NEKTech_Doc_Handler::setFontSize(int arg)
 {
     QTextCursor cursor = textCursor();
     if (cursor.isNull())
@@ -267,7 +226,7 @@ void DocumentHandler::setFontSize(int arg)
     emit fontSizeChanged();
 }
 
-QColor DocumentHandler::textColor() const
+QColor NEKTech_Doc_Handler::textColor() const
 {
     QTextCursor cursor = textCursor();
     if (cursor.isNull())
@@ -276,7 +235,7 @@ QColor DocumentHandler::textColor() const
     return format.foreground().color();
 }
 
-void DocumentHandler::setTextColor(const QColor &c)
+void NEKTech_Doc_Handler::setTextColor(const QColor &c)
 {
     QTextCursor cursor = textCursor();
     if (cursor.isNull())
@@ -287,7 +246,7 @@ void DocumentHandler::setTextColor(const QColor &c)
     emit textColorChanged();
 }
 
-QString DocumentHandler::fontFamily() const
+QString NEKTech_Doc_Handler::fontFamily() const
 {
     QTextCursor cursor = textCursor();
     if (cursor.isNull())
@@ -296,7 +255,7 @@ QString DocumentHandler::fontFamily() const
     return format.font().family();
 }
 
-void DocumentHandler::setFontFamily(const QString &arg)
+void NEKTech_Doc_Handler::setFontFamily(const QString &arg)
 {
     QTextCursor cursor = textCursor();
     if (cursor.isNull())
@@ -307,7 +266,7 @@ void DocumentHandler::setFontFamily(const QString &arg)
     emit fontFamilyChanged();
 }
 
-QStringList DocumentHandler::defaultFontSizes() const
+QStringList NEKTech_Doc_Handler::defaultFontSizes() const
 {
     // uhm... this is quite ugly
     QStringList sizes;

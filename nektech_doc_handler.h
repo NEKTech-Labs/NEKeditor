@@ -1,5 +1,5 @@
-#ifndef DOCUMENTHANDLER_H
-#define DOCUMENTHANDLER_H
+#ifndef NEKTECH_DOC_HANDLER_H
+#define NEKTECH_DOC_HANDLER_H
 
 #include <QQuickTextDocument>
 
@@ -12,7 +12,8 @@ QT_BEGIN_NAMESPACE
 class QTextDocument;
 QT_END_NAMESPACE
 
-class DocumentHandler : public QObject
+
+class NEKTech_Doc_Handler: public QObject
 {
     Q_OBJECT
 
@@ -40,8 +41,7 @@ class DocumentHandler : public QObject
     Q_PROPERTY(QString documentTitle READ documentTitle WRITE setDocumentTitle NOTIFY documentTitleChanged)
 
 public:
-    DocumentHandler();
-
+    NEKTech_Doc_Handler();
     QQuickItem *target() { return m_target; }
 
     void setTarget(QQuickItem *target);
@@ -123,6 +123,7 @@ private:
     QUrl m_fileUrl;
     QString m_text;
     QString m_documentTitle;
+
 };
 
-#endif
+#endif // NEKTECH_DOC_HANDLER_H

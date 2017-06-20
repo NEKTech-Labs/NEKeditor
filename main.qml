@@ -3,70 +3,65 @@ import QtQuick.Layouts 1.0
 import QtQuick.Window 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.2
-import org.qtproject.example 1.0
+import NEKeditor 1.0
 
 
 Window {
     visible: true
-    width: 360
-    height: 360
+    width: Screen.desktopAvailableWidth
+    height: Screen.desktopAvailableHeight
     TextArea {
         Accessible.name: "document"
         id: textArea
-        x: 0
-        y: 25
         width: parent.width
-        anchors.bottom: parent.height/2
+        anchors.top: newButton.bottom
+        anchors.bottom: parent.bottom
         baseUrl: "qrc:/"
         text: document.text
         font.pointSize: 12
-        font.bold: false
-        textFormat: textArea.AutoText
         Component.onCompleted: forceActiveFocus()
     }
 
+    ToolButton {
+        id: newButton
+        x: 0
+        y: 0
+        text: "New"
+        onClicked: document.fileUrl = "qrc:/"
+    }
 
-    Rectangle{
-        id:button
-        width: 210
-        height: 56
-        color: "#a0a3db"
-        radius: 23
-        border.width: 1
-        Text {
-            id: txtopen
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            text: qsTr("Press me")
+    ToolButton {
+        id: openButton
+        y: 0
+        anchors.left: newButton.right
+        text: "Open"
+        onClicked: fileDialog.open()
+    }
+
+
+    ToolButton {
+        id: saveButton
+        y: 0
+        anchors.left: openButton.right
+        text: "Save"
+        onClicked: {
+         nektechio.save(textArea.text)
+            console.log("save button clicked")
         }
-        anchors.verticalCenterOffset: 74
-        anchors.horizontalCenterOffset: 7
-        anchors.centerIn: parent
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-              //  Qt.quit();
-            fileDialog.open();
-
-            }
-        }
-
     }
 
     FileDialog{
         id: fileDialog
-        nameFilters: ["Text files (*.txt)", "C Programs (*.c)"]
-        onAccepted: document.fileUrl = fileUrl
+        nameFilters: ["C Files (*.c)", "C++ Files (*.cpp)"]
+        onAccepted: {
+            document.fileUrl = fileUrl
+        }
     }
 
-    DocumentHandler{
+    NEKTech_Doc_Handler{
         id: document
         target: textArea
-       // cursorPosition: textArea.cursorPosition
-        //selectionStart: textArea.selectionStart
-        //selectionEnd: textArea.selectionEnd
-        Component.onCompleted: document.fileUrl = "qrc:/file/test.c"
-        }
+        Component.onCompleted: document.fileUrl = "qrc:/nektech.c"
+    }
 
 }
